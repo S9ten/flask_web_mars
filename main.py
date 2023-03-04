@@ -2,6 +2,7 @@ import json
 
 from flask import Flask, url_for, render_template, redirect
 
+from data import db_session, news_api
 from forms.login_form import LoginForm
 
 app = Flask(__name__)
@@ -68,4 +69,6 @@ def return_sample_page():
 
 
 if __name__ == '__main__':
+    db_session.global_init("db/blogs.db")
+    app.register_blueprint(news_api.blueprint)
     app.run(port=8080, host='127.0.0.1')

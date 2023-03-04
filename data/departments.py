@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from .db_session import SqlAlchemyBase
 from sqlalchemy_serializer import SerializerMixin
 
+
 class Department(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'departments'
 

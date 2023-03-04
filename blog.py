@@ -1,14 +1,15 @@
 import datetime
-from flask import Flask, render_template, redirect, request, make_response, session, abort, Blueprint
+from flask import Flask, render_template, redirect, request, make_response, session, abort, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from requests import get
 
-from data import db_session
 from data.category import Category
 from data.news import News
 from data.users import User
 from forms.login_form import LoginForm
 from forms.news import NewsForm
 from forms.user import RegisterForm
+from data import db_session, news_api, jobs_api
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -193,20 +194,19 @@ def register():
 #         return redirect('/index')
 #     return render_template('login.html', title='Авторизация', form=form)
 
-@Blueprint.route('/api/jobs')
-def get_jobs():
-    db_sess = db_session.create_session()
-    news = db_sess.query(News).all()
-    return jsonify(
-        {
-            'jobs':
-                [item.to_dict(only=('title', 'content', 'user.name'))
-                 for item in news]
-        }
-    )
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.errorhandler(400)
+def bad_request(_):
+    return make_response(jsonify({'error': 'Bad Request'}), 400)
+
 
 def main():
     db_session.global_init("db/blogs.db")
+    app.register_blueprint(jobs_api.blueprint)
     app.run(port=8080, host='127.0.0.1')
 
     # db_sess = db_session.create_session()
@@ -251,6 +251,7 @@ def main():
     # cat = Category(name='Штирлиц')
     # db_sess.add(cat)
     # db_sess.commit()
+
 
 if __name__ == '__main__':
     main()
