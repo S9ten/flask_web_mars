@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if prof == 'ul' %}
+        <ul>
+    {% else %}
+        <ol>
+    {% endif %}
+        {% for item in professions %}
+            <li>{{item}}</li>
+        {% endfor %}
+    {% if prof == 'ul' %}
+        </ul>
+    {% else %}
+        </ol>
+    {% endif %}
+{% endblock %}

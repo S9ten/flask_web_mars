@@ -1,0 +1,38 @@
+{
+  "member 1": {
+    "name": "Ридли",
+    "surname": "Скотт",
+    "img": "static/img/alien_1.png",
+    "profs": "инженер-исследователь, пилот"
+  },
+  "member 2": {
+    "name": "Энди",
+    "surname": "Уир",
+    "img": "static/img/alien_2.jpg",
+    "profs": "гляциолог"
+  },
+  "member 3": {
+    "name": "Марк",
+    "surname": "Уотни",
+    "img": "static/img/creation.jpg",
+    "profs": "астрогеолог, киберинженер"
+  },
+  "member 4": {
+    "name": "Венката",
+    "surname": "Капур",
+    "img": "static/img/alien_1.png",
+    "profs": "штурман"
+  },
+  "member 5": {
+    "name": "Тедди",
+    "surname": "Сандерс",
+    "img": "static/img/alien_2.jpg",
+    "profs": "астрогеолог, инженер по терраформированию"
+  },
+  "member 6": {
+    "name": "Шон",
+    "surname": "Бин",
+    "img": "static/img/creation.jpg",
+    "profs": "метеоролог, инженер жизнеобеспечения"
+  }
+}

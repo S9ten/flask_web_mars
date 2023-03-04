@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2 class="choo">Размещение по каютам</h2>
+    {% for item in cosm %}
+        <p>{{ item }} - Каюта №{{ loop.index }}
+            {%  if loop.index  == 1 %}
+                - капитан корабля
+            {%  endif %}
+        </p>
+    {% endfor %}
+
+{% endblock %}
