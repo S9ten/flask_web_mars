@@ -1,6 +1,7 @@
 import datetime
 from flask import Flask, render_template, redirect, request, make_response, session, abort, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_restful import Api
 from requests import get
 
 from data.category import Category
@@ -9,14 +10,18 @@ from data.users import User
 from forms.login_form import LoginForm
 from forms.news import NewsForm
 from forms.user import RegisterForm
-from data import db_session, news_api, jobs_api
+from data import db_session, news_api, jobs_api, news_resources, users_resources
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
-
+api = Api(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+# для списка объектов
+api.add_resource(users_resources.UsersListResource, '/api/v2/users')
 
+# для одного объекта
+api.add_resource(users_resources.UsersResource, '/api/v2/users/<int:users_id>')
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -193,16 +198,6 @@ def register():
 #     if form.validate_on_submit():
 #         return redirect('/index')
 #     return render_template('login.html', title='Авторизация', form=form)
-
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
-
-
-@app.errorhandler(400)
-def bad_request(_):
-    return make_response(jsonify({'error': 'Bad Request'}), 400)
-
 
 def main():
     db_session.global_init("db/blogs.db")

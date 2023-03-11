@@ -1,5 +1,7 @@
 import flask
 from flask import jsonify, request
+from flask_restful import abort
+
 from data import db_session
 from data.news import News
 
@@ -70,3 +72,4 @@ def delete_news(news_id):
     db_sess.delete(news)
     db_sess.commit()
     return jsonify({'success': 'OK'})
+
