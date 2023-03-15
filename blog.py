@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, request, make_response, sess
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_restful import Api
 from requests import get
-
+from waitress import serve
 from data.category import Category
 from data.news import News
 from data.users import User
